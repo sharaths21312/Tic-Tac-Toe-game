@@ -2,16 +2,25 @@
 # pylint: disable=no-member,unused-import
 import time
 import math
+import os
 import pygame
 
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+# Fix an error if the program is not executed from the program directory,
+# by changing the working directory to the program directory
+
 pygame.init()
-size = (900, 600)
-MAXFPS = 30
+size = (900, 600) # Size of display
+MAXFPS = 30 # Maximun FPS, to prevent too much CPU usage
 
 window = pygame.display.set_mode(size)
 
-pygame.display.set_caption("A simple game")
-pygame.display.set_icon(pygame.image.load("Resources/icon.png"))
+pygame.display.set_caption("Tic Tac Toe")
+try:
+    pygame.display.set_icon(pygame.image.load("Resources\\icon.png"))
+except FileNotFoundError:
+    pygame.display.set_icon(pygame.image.load("Resources/icon.png"))
+# Linux vs windows
 
 RUNNING = True
 lastTime = time.time()
