@@ -29,12 +29,13 @@ Colorpallette = {
 }
 
 # Internal variables
+turn = 1 # 1 -> X, -1 -> O
 size = (600, 600)
 lastTime = time.time()
 RUNNING = True
-state = (0, 0, 0,
+state = [0, 0, 0,
          0, 0, 0,
-         0, 0, 0)  # 0 -> empty; 1 -> X; -1 -> O
+         0, 0, 0]  # 0 -> empty; 1 -> X; -1 -> O
 
 coordinates = ((160, 160), (300, 160), (440, 160),
                (160, 300), (300, 300), (440, 300),
@@ -50,15 +51,25 @@ except FileNotFoundError:
 # Functions
 
 def drawcross(color, coords, h: float):
-    pygame.draw.line(window, color, (coords[0] - h, coords[1] - h), (coords[0] + h, coords[0] + h), 4)
-    pygame.draw.line(window, color, (coords[0] - h, coords[1] + h), (coords[1] + h, coords[1] - h), 4)
+    pygame.draw.line(window, color, (coords[0] - h, coords[1] - h), (coords[0] + h, coords[1] + h), 4)
+    pygame.draw.line(window, color, (coords[0] - h, coords[1] + h), (coords[0] + h, coords[1] - h), 4)
 
 def gameloop(event):
+    global turn, state
     """Main game loop"""
     if event.type == 256:  # Close button pressed
         pygame.quit()
         exit(0)
-    
+
+    elif event.type == 1025: # Mouse Down
+        if 0 not in state: state, turn = [0 for i in range(9)], 1; return
+
+        pos = pygame.mouse.get_pos()
+        for i, j in enumerate(coordinates):
+            if state[i] != 0: continue
+            if ((j[0] - 70 < pos[0] < j[0] + 70) and (j[1] - 70 < pos[1] < j[1] + 70)):
+                state[i] = turn
+                turn = turn * -1
 
 
 
