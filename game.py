@@ -5,14 +5,13 @@
 import os
 import pygame
 pygame.init()
-font = pygame.font.SysFont("arial", 40)
-textSurface = font.render("", True, (255, 255,255), (0, 0, 0))
 textRect = pygame.Rect(1, 1, 1, 1)
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 # Fix an error if the program is not executed from the program directory,
 # by changing the working directory to the program directory
 
 # User-adjustable variables
+font = "arial"
 MAXFPS = 30  # Maximun FPS, to prevent too much CPU usage
 theme = "dark"
 # Dark vs light colors
@@ -37,6 +36,8 @@ clock = pygame.time.Clock()
 size = (600, 600)
 wins = [0, 0, 0] # Draws, X, O
 RUNNING = True
+fontObj = pygame.font.SysFont(font, 40)
+textSurface = fontObj.render("", True, (255, 255,255), (0, 0, 0))
 state = [0, 0, 0,
          0, 0, 0,
          0, 0, 0]  # 0 -> empty; 1 -> X; -1 -> O
@@ -62,7 +63,7 @@ def ResetBoard():
     global textSurface, textRect, state, turn
     stringval = "X: " + str(wins[1]) + " Draw: " + str(wins[0]) + " O: " + str(wins[2])
     state, turn = [0 for i in range(9)], 1
-    textSurface = font.render(stringval, True, (255, 255,255))
+    textSurface = fontObj.render(stringval, True, (255, 255,255))
     textRect = textSurface.get_rect()
     textRect.center = (300, 550)
 
