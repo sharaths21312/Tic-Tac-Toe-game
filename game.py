@@ -103,10 +103,10 @@ def draw():
 
 def CheckWin():
     for i in range(3):
-        if state[3*i] == state[1 + 3*i] == state[2 + 3*i]: return state[1 + 3*i]
-        if state[i] == state[i + 3] == state[i+6]: return state[i]
-    if state[0] == state[4] == state[8]: return state[0]
-    if state[2] == state[4] == state[6]: return state[3]
+        if state[3*i] == state[1 + 3*i] == state[2 + 3*i] and abs(state[3*i]) ==1 : return state[1 + 3*i]
+        if state[i] == state[i + 3] == state[i+6] and abs(state[i]) == 1: return state[i]
+    if state[0] == state[4] == state[8] and abs(state[0]) == 1: return state[0]
+    if state[2] == state[4] == state[6] and abs(state[2]) == 1: return state[2]
     return 0
 
 ResetBoard()
